@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    image: jaser-app
+    working_dir: /usr/src/app
+    volumes:
+      - '.:/usr/src/app'
+    command: npm start
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    environment:
+      MYSQL_USER: levelup
+      MYSQL_PASSWORD: levelup
+      MYSQL_DATABASE: levelup_docker
+      MYSQL_ROOT_HOST: mariadb
+  db:
+    image: 'mariadb:latest'
+    restart: always
+    environment:
+      MYSQL_USER: levelup
+      MYSQL_PASSWORD: levelup
+      MYSQL_DATABASE: levelup_docker
+      MYSQL_ROOT_HOST: mariadb
+    ports:
+      - '3306:3306'
